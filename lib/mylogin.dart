@@ -4,74 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
 import 'dart:async';
-// import 'firebase.dart';
-// import 'mylogin.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // FirebaseOptions for the current platform
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: SplashScreen(), // 最初にスプラッシュ画面を表示
-    );
-  }
-}
-
-// スプラッシュ画面
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // 2秒後にログイン画面に遷移する
-    Timer(Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => MyLogin()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Text(
-                '今やりたいことを叶える\n助け合いアプリ',
-                style: TextStyle(fontSize: 32, color: Colors.orange),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(height: 24),
-            Image.asset('assets/images/GOJO.png'),
-            CircularProgressIndicator(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-//--------------------------
 class MyLogin extends StatelessWidget {
   const MyLogin({super.key});
 
