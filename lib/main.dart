@@ -6,6 +6,7 @@ import 'firebase_options.dart';
 import 'dart:async';
 // import 'firebase.dart';
 // import 'mylogin.dart';
+import 'toppage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -201,6 +202,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: TextStyle(color: Colors.green, fontSize: 24),
                           ),
                         ),
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TopPage()),
                       );
                     } on FirebaseAuthException catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
