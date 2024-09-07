@@ -1,1 +1,39 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"flutter-gojo202409","appId":"1:284562977300:android:6bd722ad4ef68884ac6d01","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"flutter-gojo202409","appId":"1:284562977300:ios:7a5baba1cbed55ecac6d01","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"flutter-gojo202409","configurations":{"android":"1:284562977300:android:6bd722ad4ef68884ac6d01","ios":"1:284562977300:ios:7a5baba1cbed55ecac6d01","web":"1:284562977300:web:0893a52b31d518a9ac6d01"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "flutter-gojo202409",
+          "appId": "1:284562977300:android:6bd722ad4ef68884ac6d01",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "flutter-gojo202409",
+          "appId": "1:284562977300:ios:7a5baba1cbed55ecac6d01",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "flutter-gojo202409",
+          "configurations": {
+            "android": "1:284562977300:android:6bd722ad4ef68884ac6d01",
+            "ios": "1:284562977300:ios:7a5baba1cbed55ecac6d01",
+            "web": "1:284562977300:web:0893a52b31d518a9ac6d01"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
