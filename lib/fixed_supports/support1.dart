@@ -64,7 +64,7 @@ class Placeholder extends StatelessWidget {
                   SizedBox(
                     child: Container(
                       padding: EdgeInsets.all(16),
-                      child: Text('このスマホを見せている方を助けてあげていただけませんか',
+                      child: Text('このスマホを見せている方（氏名を入れる）を助けてあげていただけませんか',
                           style: TextStyle(fontSize: 24)),
                     ),
                   ),
