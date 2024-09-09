@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'fixed_supports/support1.dart';
 
 class TabsTopPage extends StatefulWidget {
   const TabsTopPage({super.key});
@@ -61,6 +62,15 @@ class _TabsTopPageState extends State<TabsTopPage> {
                       child: Text('下記カードをクリックして相手に協力を求めてください',
                           style: TextStyle(fontSize: 24)),
                     ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Support1Page()),
+                      );
+                    },
+                    child: Card1(text: 'サポートを求める'), // カスタムカードウィジェット
                   ),
                   Card1(text: 'サポートを求める'),
                   Card1(text: '道に迷ったとき'),
