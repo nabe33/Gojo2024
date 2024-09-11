@@ -7,6 +7,13 @@ import 'dart:async';
 // import 'firebase.dart';
 // import 'mylogin.dart';
 import 'toppage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// final userProvider = StreamProvider<User?>((ref) {
+//   return FirebaseAuth.instance.authStateChanges();
+// });
+
+final userProvider = StateProvider<User?>((ref) => null);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +21,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -90,16 +97,17 @@ class MyLogin extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  // State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
 // Authentication
   String _email = '';
   String _password = '';
@@ -153,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         password: _password,
                       ))
                           .user;
+                      ref.read(userProvider.notifier).state = user;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content:
@@ -194,6 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         password: _password,
                       ))
                           .user;
+                      ref.read(userProvider.notifier).state = user;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           // content: Text('ログイン成功: ${user?.email}, ${user?.uid}'),
