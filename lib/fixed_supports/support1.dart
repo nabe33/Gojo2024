@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'support_hint.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../main.dart';
+
 // サポートを求める場合
 
-class Support1Page extends StatelessWidget {
+class Support1Page extends ConsumerWidget {
   const Support1Page({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider);
 
-class Placeholder extends StatelessWidget {
-  const Placeholder({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     return DefaultTabController(
         initialIndex: 1,
         length: 2,
@@ -64,7 +60,7 @@ class Placeholder extends StatelessWidget {
                   SizedBox(
                     child: Container(
                       padding: EdgeInsets.all(16),
-                      child: Text('このスマホを見せている方（氏名を入れる）を助けてあげていただけませんか',
+                      child: Text('このスマホを見せている方（${user?.email}）を助けてあげていただけませんか',
                           style: TextStyle(fontSize: 24)),
                     ),
                   ),
