@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'alarm_test.dart';
 import 'tabs_top.dart';
+import 'mypage.dart';
 
 // トップページ：マイページ設定，アプリを始める，ログアウト，チュートリアル
 class TopPage extends StatefulWidget {
@@ -86,7 +87,14 @@ class _TopPageState extends State<TopPage> {
                         ),
                         const SizedBox(height: 12),
                         ElevatedButton(
-                            onPressed: () {}, child: Text('マイページ編集')),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyPageEdit()),
+                              );
+                            },
+                            child: Text('マイページ編集')),
                       ],
                     ),
                   ),
