@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'helpCard/helpcard_top.dart';
 import 'fixed_supports/support1.dart';
 
 class TabsTopPage extends StatefulWidget {
@@ -54,6 +55,8 @@ class _TabsTopPageState extends State<TabsTopPage> {
                     )),
               ),
               // ご協力依頼Tab
+              HelpCardListPage(),
+              /*
               ListView(
                 children: [
                   SizedBox(
@@ -118,6 +121,7 @@ class _TabsTopPageState extends State<TabsTopPage> {
                       )),
                 ],
               ),
+              */
             ],
           ),
         ));
