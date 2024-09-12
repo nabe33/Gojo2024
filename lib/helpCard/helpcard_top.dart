@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../main.dart';
 import 'newcard.dart';
+import 'edit_helpcard.dart';
+import 'enlarge_helpcard.dart';
 
 class HelpCardListPage extends ConsumerStatefulWidget {
   const HelpCardListPage({super.key});
@@ -30,7 +32,12 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
           .orderBy('timestamp', descending: true)
           .get();
 
-      return querySnapshot.docs.map((doc) => doc.data()).toList();
+      return querySnapshot.docs.map((doc) {
+        final data = doc.data();
+        data['id'] = doc.id; // ドキュメントIDを追加
+        return data;
+      }).toList();
+      // return querySnapshot.docs.map((doc) => doc.data()).toList();
     }
     return [];
   }
@@ -66,8 +73,83 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                     itemBuilder: (context, index) {
                       final helpCard = helpCards[index];
                       return Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        shadowColor: Colors.blue,
                         child: ListTile(
                           title: Text(helpCard['title'] ?? 'No Title'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              TextButton(
+                                onPressed: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EnlargeHelpCard(helpCard: helpCard),
+                                    ),
+                                  );
+                                  if (result == true) {
+                                    _refreshHelpCards(); // Refresh the list if changes were made
+                                  }
+                                },
+                                child: Text(
+                                  '拡大',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                              // IconButton(
+                              //   icon: Icon(Icons.lens, color: Colors.blue),
+                              //   onPressed: () async {
+                              //     final result = await Navigator.push(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             EnlargeHelpCard(helpCard: helpCard),
+                              //       ),
+                              //     );
+                              //     if (result == true) {
+                              //       _refreshHelpCards(); // Refresh the list if changes were made
+                              //     }
+                              //   },
+                              // ),
+                              IconButton(
+                                icon: Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditHelpCard(helpCard: helpCard),
+                                    ),
+                                  );
+                                  if (result == true) {
+                                    _refreshHelpCards(); // Refresh the list if changes were made
+                                  }
+                                },
+                              ),
+                              IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.red),
+                                  onPressed: () async {
+                                    final user = ref.read(userProvider);
+                                    if (user != null) {
+                                      await FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(user.uid)
+                                          .collection('helpcard')
+                                          .doc(helpCard['id']) // ドキュメントIDを指定
+                                          .delete();
+                                      _refreshHelpCards(); // データを再読み込み
+                                    }
+                                  }),
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -102,24 +184,24 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
             ),
           ),
           SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.edit, size: 28, color: Colors.black),
-                SizedBox(width: 8),
-                Text(
-                  'カードを編集・削除',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {},
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Icon(Icons.edit, size: 28, color: Colors.black),
+          //       SizedBox(width: 8),
+          //       Text(
+          //         'カードを編集・削除',
+          //         style: TextStyle(
+          //           fontWeight: FontWeight.bold,
+          //           fontSize: 24,
+          //           color: Colors.black,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           SizedBox(height: 16),
         ],
       ),
