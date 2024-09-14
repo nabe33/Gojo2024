@@ -13,6 +13,7 @@ class TaskListPage extends ConsumerStatefulWidget {
 
 class _HelpCardListPageState extends ConsumerState<TaskListPage> {
   late Future<List<Map<String, dynamic>>> _taskListFuture;
+  Map<String, bool> _expandedStates = {};
 
   @override
   void initState() {
@@ -35,7 +36,6 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
         data['id'] = doc.id; // ドキュメントIDを追加
         return data;
       }).toList();
-      // return querySnapshot.docs.map((doc) => doc.data()).toList();
     }
     return [];
   }
@@ -54,7 +54,6 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
       ),
       body: Column(
         children: [
-          // 挿入
           Center(
             child: ElevatedButton(
                 onPressed: () async {
@@ -96,91 +95,91 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                     itemCount: taskLists.length,
                     itemBuilder: (context, index) {
                       final taskList = taskLists[index];
+                      final isExpanded =
+                          _expandedStates[taskList['id']] ?? false;
                       return Card(
                         elevation: 4,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                         shadowColor: Colors.blue,
-                        child: ListTile(
-                          title: Row(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _expandedStates[taskList['id']] = !isExpanded;
+                            });
+                          },
+                          child: Column(
                             children: [
-                              Text(taskList['time'] ?? '時間が保存されていません'),
-                              Text('：'),
-                              Text(taskList['task'] ?? 'やることが保存されていません'),
-                            ],
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              /*
-                              TextButton(
-                                onPressed: () async {
-                                  // final result = await Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>
-                                  //         EnlargeHelpCard(helpCard: helpCard),
-                                  //   ),
-                                  // );
-                                  // if (result == true) {
-                                  //   _refreshHelpCards(); // Refresh the list if changes were made
-                                  // }
-                                },
-                                child: Text(
-                                  '拡大',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                              ListTile(
+                                title: Row(
+                                  children: [
+                                    Text(
+                                      taskList['time'] ?? '時間が保存されていません',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text('：'),
+                                    Text(
+                                      taskList['task'] ?? 'やることが保存されていません',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                trailing: IconButton(
+                                  icon: Icon(isExpanded
+                                      ? Icons.expand_less
+                                      : Icons.expand_more),
+                                  onPressed: () {
+                                    setState(() {
+                                      _expandedStates[taskList['id']] =
+                                          !isExpanded;
+                                    });
+                                  },
+                                ),
+                              ),
+                              if (isExpanded) ...[
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '　メモ：${taskList['memo'] ?? 'メモが保存されていません'}',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        '　場所：${taskList['place'] ?? '場所が保存されていません'}',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      SizedBox(height: 8),
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceBetween,
+                                      //   children: [
+                                      //     Expanded(
+                                      //         child:
+                                      //             Container()), // This ensures the IconButton is right-aligned
+                                      //     IconButton(
+                                      //       icon: Icon(Icons.expand_less),
+                                      //       onPressed: () {
+                                      //         setState(() {
+                                      //           _expandedStates[
+                                      //               taskList['id']] = false;
+                                      //         });
+                                      //       },
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                    ],
                                   ),
                                 ),
-                              ),*/
-                              // IconButton(
-                              //   icon: Icon(Icons.lens, color: Colors.blue),
-                              //   onPressed: () async {
-                              //     final result = await Navigator.push(
-                              //       context,
-                              //       MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             EnlargeHelpCard(helpCard: helpCard),
-                              //       ),
-                              //     );
-                              //     if (result == true) {
-                              //       _refreshHelpCards(); // Refresh the list if changes were made
-                              //     }
-                              //   },
-                              // ),
-                              /*
-                              IconButton(
-                                icon: Icon(Icons.edit, color: Colors.blue),
-                                onPressed: () async {
-                                  // final result = await Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>
-                                  //         EditHelpCard(helpCard: helpCard),
-                                  //   ),
-                                  // );
-                                  // if (result == true) {
-                                  //   _refreshHelpCards(); // Refresh the list if changes were made
-                                  // }
-                                },
-                              ),*/
-                              /*
-                              IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () async {
-                                    final user = ref.read(userProvider);
-                                    if (user != null) {
-                                      await FirebaseFirestore.instance
-                                          .collection('users')
-                                          .doc(user.uid)
-                                          .collection('helpcard')
-                                          .doc(taskList['id']) // ドキュメントIDを指定
-                                          .delete();
-                                      _refreshTaskList(); // データを再読み込み
-                                    }
-                                  }),*/
+                              ],
                             ],
                           ),
                         ),
@@ -217,50 +216,6 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                   ],
                 )),
           ),
-          /*
-          ElevatedButton(
-            onPressed: () async {
-              // await Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => NewCardPage()),
-              // );
-              // _refreshHelpCards();
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.add, size: 28, color: Colors.black),
-                SizedBox(width: 8),
-                Text(
-                  'カードを追加',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),*/
-          SizedBox(height: 16),
-          // ElevatedButton(
-          //   onPressed: () {},
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       Icon(Icons.edit, size: 28, color: Colors.black),
-          //       SizedBox(width: 8),
-          //       Text(
-          //         'カードを編集・削除',
-          //         style: TextStyle(
-          //           fontWeight: FontWeight.bold,
-          //           fontSize: 24,
-          //           color: Colors.black,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );
