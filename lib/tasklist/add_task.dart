@@ -12,10 +12,11 @@ class AddTaskPage extends ConsumerStatefulWidget {
 }
 
 class _MyPageEditState extends ConsumerState<AddTaskPage> {
+  final TextEditingController taskController = TextEditingController();
   final TextEditingController placeController = TextEditingController();
   final TextEditingController memoController = TextEditingController();
   TimeOfDay? selectedTime;
-  String selectedTask = 'どこかに行く';
+  // String selectedTask = 'どこかに行く';
 
   @override
   void initState() {
@@ -108,6 +109,7 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                       : '時間を選択'),
                 ),
                 SizedBox(height: 24),
+                //
                 Text(
                   'やること',
                   style: TextStyle(
@@ -116,7 +118,14 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                   ),
                 ),
                 SizedBox(height: 8),
-                DropdownButton<String>(
+                TextField(
+                  controller: taskController,
+                  decoration: InputDecoration(
+                    hintText: '例）どこかに行く，乗る・降りる，買い物',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                /*DropdownButton<String>(
                   value: selectedTask,
                   onChanged: (String? newValue) {
                     setState(() {
@@ -131,6 +140,7 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                     );
                   }).toList(),
                 ),
+                */
                 SizedBox(height: 24),
                 Text(
                   '場所',
@@ -171,7 +181,7 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                       placeController.text,
                       memoController.text,
                       selectedTime,
-                      selectedTask,
+                      taskController.text,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('今日の予定を保存しました')),

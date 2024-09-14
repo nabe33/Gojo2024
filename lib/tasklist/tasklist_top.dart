@@ -46,6 +46,19 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
     });
   }
 
+  void _toggleCheck(String taskId, bool currentCheck) async {
+    final user = ref.read(userProvider);
+    if (user != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('tasklist')
+          .doc(taskId)
+          .update({'check': !currentCheck});
+      _refreshTaskList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +125,13 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                           child: Column(
                             children: [
                               ListTile(
+                                leading: Checkbox(
+                                  value: taskList['check'] ?? false,
+                                  onChanged: (bool? value) {
+                                    _toggleCheck(taskList['id'],
+                                        taskList['check'] ?? false);
+                                  },
+                                ),
                                 title: Row(
                                   children: [
                                     Text(
@@ -158,24 +178,6 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                         style: TextStyle(fontSize: 16),
                                       ),
                                       SizedBox(height: 8),
-                                      // Row(
-                                      //   mainAxisAlignment:
-                                      //       MainAxisAlignment.spaceBetween,
-                                      //   children: [
-                                      //     Expanded(
-                                      //         child:
-                                      //             Container()), // This ensures the IconButton is right-aligned
-                                      //     IconButton(
-                                      //       icon: Icon(Icons.expand_less),
-                                      //       onPressed: () {
-                                      //         setState(() {
-                                      //           _expandedStates[
-                                      //               taskList['id']] = false;
-                                      //         });
-                                      //       },
-                                      //     ),
-                                      //   ],
-                                      // ),
                                     ],
                                   ),
                                 ),
