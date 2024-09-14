@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'show_support_hint.dart';
+import '../tasklist/tasklist_top.dart';
 
 class EnlargeHelpCard extends StatelessWidget {
   final Map<String, dynamic> helpCard;
@@ -37,18 +38,6 @@ class EnlargeHelpCard extends StatelessWidget {
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
-            // SizedBox(height: 8),
-            // Container(
-            //   decoration: BoxDecoration(
-            //     border: Border.all(color: Colors.grey),
-            //     borderRadius: BorderRadius.circular(8),
-            //   ),
-            //   padding: EdgeInsets.all(8),
-            //   child: Text(
-            //     helpCard['title'] ?? 'No Title',
-            //     style: TextStyle(fontSize: 18),
-            //   ),
-            // ),
             SizedBox(height: 36),
             Center(
               child: Text(
@@ -101,7 +90,7 @@ class EnlargeHelpCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24),
-            Center(
+            /*Center(
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(
@@ -119,7 +108,8 @@ class EnlargeHelpCard extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
+            ),*/
+            // Expanded(child: TaskListPage())
           ],
         ),
       ),
