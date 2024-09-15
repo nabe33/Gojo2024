@@ -27,7 +27,7 @@ class EnlargeHelpCard extends StatelessWidget {
           ],
         ),
       ),
-      body: SingleChildScrollView(
+      body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,26 +90,11 @@ class EnlargeHelpCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24),
-            /*Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(
-                      context, true); // Return true to indicate completion
-                },
-                style: ElevatedButton.styleFrom(
-                    elevation: 4,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.inversePrimary),
-                child: Text(
-                  '完了',
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),*/
-            // Expanded(child: TaskListPage())
+            Divider(
+              color: Colors.blue, // 線の色
+              thickness: 2.0, // 線の太さ
+            ),
+            Expanded(child: TaskListPage(displayButton: false))
           ],
         ),
       ),

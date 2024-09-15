@@ -3,9 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../main.dart';
 import 'add_task.dart';
+import 'edit_tasklist.dart';
+
+// class TaskListPage extends ConsumerStatefulWidget {
+//   const TaskListPage({super.key});
 
 class TaskListPage extends ConsumerStatefulWidget {
-  const TaskListPage({super.key});
+  final bool displayButton;
+
+  const TaskListPage({super.key, this.displayButton = false});
 
   @override
   _HelpCardListPageState createState() => _HelpCardListPageState();
@@ -67,31 +73,32 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
       ),
       body: Column(
         children: [
-          Center(
-            child: ElevatedButton(
-                onPressed: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddTaskPage(),
-                    ),
-                  );
-                  if (result == true) {
-                    _refreshTaskList(); // Refresh the list if changes were made
-                  }
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.add),
-                    SizedBox(width: 8),
-                    Text(
-                      "やりたいことを追加",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
-                )),
-          ),
+          if (widget.displayButton)
+            Center(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddTaskPage(),
+                      ),
+                    );
+                    if (result == true) {
+                      _refreshTaskList(); // Refresh the list if changes were made
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add),
+                      SizedBox(width: 8),
+                      Text(
+                        "やりたいことを追加",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )),
+            ),
           Expanded(
             child: FutureBuilder<List<Map<String, dynamic>>>(
               future: _taskListFuture,
@@ -178,6 +185,49 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                         style: TextStyle(fontSize: 16),
                                       ),
                                       SizedBox(height: 8),
+                                      // 下部の編集・削除ボタン
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          IconButton(
+                                            icon: Icon(Icons.edit,
+                                                color: Colors.blue),
+                                            onPressed: () async {
+                                              final result =
+                                                  await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditTaskList(
+                                                          task: taskList),
+                                                ),
+                                              );
+                                              if (result == true) {
+                                                _refreshTaskList(); // Refresh the list if changes were made
+                                              }
+                                            },
+                                          ),
+                                          IconButton(
+                                              icon: Icon(Icons.delete,
+                                                  color: Colors.red),
+                                              onPressed: () async {
+                                                final user =
+                                                    ref.read(userProvider);
+                                                if (user != null) {
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection('users')
+                                                      .doc(user.uid)
+                                                      .collection('tasklist')
+                                                      .doc(taskList[
+                                                          'id']) // ドキュメントIDを指定
+                                                      .delete();
+                                                  _refreshTaskList(); // データを再読み込み
+                                                }
+                                              }),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -192,32 +242,33 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
               },
             ),
           ),
-          SizedBox(height: 16),
-          Center(
-            child: ElevatedButton(
-                onPressed: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddTaskPage(),
-                    ),
-                  );
-                  if (result == true) {
-                    _refreshTaskList(); // Refresh the list if changes were made
-                  }
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.add),
-                    SizedBox(width: 8),
-                    Text(
-                      "やりたいことを追加",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
-                )),
-          ),
+          if (widget.displayButton) SizedBox(height: 16),
+          if (widget.displayButton)
+            Center(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddTaskPage(),
+                      ),
+                    );
+                    if (result == true) {
+                      _refreshTaskList(); // Refresh the list if changes were made
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add),
+                      SizedBox(width: 8),
+                      Text(
+                        "やりたいことを追加",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )),
+            ),
         ],
       ),
     );
