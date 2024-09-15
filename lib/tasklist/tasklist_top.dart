@@ -144,13 +144,17 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                     Text(
                                       taskList['time'] ?? '時間が保存されていません',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     Text('：'),
-                                    Text(
-                                      taskList['task'] ?? 'やることが保存されていません',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    Expanded(
+                                      child: Text(
+                                        taskList['task'] ?? 'やることが保存されていません',
+                                        maxLines: 3,
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                      ),
                                     ),
                                   ],
                                 ),
