@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../alarm_test.dart';
 import '../main.dart';
 import 'add_task.dart';
 import 'edit_tasklist.dart';
@@ -228,6 +229,10 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                                           'id']) // ドキュメントIDを指定
                                                       .delete();
                                                   _refreshTaskList(); // データを再読み込み
+                                                  // アラーム設定
+                                                  AlarmPage().cancelAllAlarms();
+                                                  AlarmPage().fetchAndSetAlarm(
+                                                      context);
                                                 }
                                               }),
                                         ],
