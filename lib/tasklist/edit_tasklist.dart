@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../alarm_test.dart';
 import '../main.dart';
 
 class EditTaskList extends ConsumerStatefulWidget {
@@ -135,6 +136,10 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
                 //   titleController.text,
                 //   contentsController.text,
                 // );
+                // アラーム設定
+                AlarmPage().cancelAllAlarms();
+                AlarmPage().fetchAndSetAlarm(context);
+                //
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('今日の予定を保存しました')),
                 );

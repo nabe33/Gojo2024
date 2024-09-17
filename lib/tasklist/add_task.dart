@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import '../alarm_test.dart';
 import '../main.dart';
 
 class AddTaskPage extends ConsumerStatefulWidget {
@@ -183,6 +184,10 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                       selectedTime,
                       taskController.text,
                     );
+                    // アラーム設定
+                    AlarmPage().cancelAllAlarms();
+                    AlarmPage().fetchAndSetAlarm(context);
+                    //
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('今日の予定を保存しました')),
                     );

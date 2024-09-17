@@ -4,20 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
 import 'dart:async';
-// import 'firebase.dart';
-// import 'mylogin.dart';
 import 'toppage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-// final userProvider = StreamProvider<User?>((ref) {
-//   return FirebaseAuth.instance.authStateChanges();
-// });
+import 'alarm_test.dart';
 
 final userProvider = StateProvider<User?>((ref) => null);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // FirebaseOptions for the current platform
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -32,12 +26,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      navigatorKey: AlarmPage.navigatorKey, // navigatorKey を設定
       home: SplashScreen(), // 最初にスプラッシュ画面を表示
     );
   }
 }
 
-// スプラッシュ画面
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -47,6 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    // アラームの設定を初期化時に実行
+    AlarmPage().fetchAndSetAlarm(context);
     // 2秒後にログイン画面に遷移する
     Timer(Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
@@ -79,11 +75,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-//--------------------------
 class MyLogin extends StatelessWidget {
   const MyLogin({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -103,16 +97,13 @@ class MyHomePage extends ConsumerStatefulWidget {
   final String title;
 
   @override
-  // State<MyHomePage> createState() => _MyHomePageState();
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
-// Authentication
   String _email = '';
   String _password = '';
 
-  //-------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +140,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 ),
               ),
               SizedBox(height: 32),
-              // ユーザ登録ボタン
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
@@ -164,19 +154,16 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                       ref.read(userProvider.notifier).state = user;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content:
-                              // Text('ユーザ登録成功:  ${user?.email}, ${user?.uid}'),
-                              Text('ユーザ登録成功:  ${user?.email}',
-                                  style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 24,
-                                  )),
+                          content: Text('ユーザ登録成功:  ${user?.email}',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 24,
+                              )),
                         ),
                       );
                     } on FirebaseAuthException catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          // content: Text('ユーザ登録失敗: ${e.message}'),
                           content: Text(
                             'ユーザ登録失敗: ${e.message}',
                             style: TextStyle(color: Colors.red, fontSize: 32),
@@ -190,8 +177,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                           color: Colors.black, fontWeight: FontWeight.bold)),
                 ),
               ),
-
-              // ログインボタン
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
@@ -206,7 +191,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                       ref.read(userProvider.notifier).state = user;
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          // content: Text('ログイン成功: ${user?.email}, ${user?.uid}'),
                           content: Text(
                             'ログイン成功: ${user?.email}',
                             style: TextStyle(color: Colors.green, fontSize: 24),
@@ -221,7 +205,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                     } on FirebaseAuthException catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          // content: Text('ログイン失敗: ${e.message}'),
                           content: Text(
                             'ログイン失敗（ユーザ登録しましたか？）',
                             style: TextStyle(color: Colors.red, fontSize: 32),
@@ -242,6 +225,5 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         ),
       ),
     );
-    // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
