@@ -148,7 +148,9 @@ class AlarmPage extends StatefulWidget {
                           style: TextStyle(
                               fontSize: 36, fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(text: 'は終わりましたか？'),
+                        TextSpan(
+                            text:
+                                'は終わりましたか？\n\n終了したら，「今日の予定」のチェックボックスをチェックしてください．'),
                       ],
                     ),
                   ),

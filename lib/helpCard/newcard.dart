@@ -41,23 +41,24 @@ class _MyPageEditState extends ConsumerState<NewCardPage> {
     final user = ref.watch(userProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        toolbarHeight: 100.0,
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/GOJO.png', height: 50),
-            Text(
-              'ヘルプカード作成',
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+      appBar: MyAppBar(text: 'ヘルプカード作成'),
+      // AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   toolbarHeight: 100.0,
+      //   title: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Image.asset('assets/images/GOJO.png', height: 50),
+      //       Text(
+      //         'ヘルプカード作成',
+      //         style: TextStyle(
+      //             fontSize: 20,
+      //             color: Colors.orange,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(12),

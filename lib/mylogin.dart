@@ -8,6 +8,7 @@ import 'dart:async';
 class MyLogin extends StatelessWidget {
   const MyLogin({super.key});
 
+  // ＊＊注意：このページは不要＊＊
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
 // Authentication
   String _email = '';
   String _password = '';
+  bool _isObscure = true; // Add a boolean to manage the visibility
 
   //-------
   @override
@@ -71,10 +73,36 @@ class _MyHomePageState extends State<MyHomePage> {
                         _password = value;
                       });
                     },
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'パスワード（6文字以上）',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure
+                              ? Icons.visibility
+                              : Icons.visibility_off, // Change icon
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure =
+                                !_isObscure; // Toggle password visibility
+                          });
+                        },
+                      ),
                     ),
+                    obscureText:
+                        _isObscure, // Use the boolean to manage obscure text
                   ),
+                  // TextField(
+                  //   onChanged: (value) {
+                  //     setState(() {
+                  //       _password = value;
+                  //     });
+                  //   },
+                  //   decoration: const InputDecoration(
+                  //     labelText: 'パスワード（6文字以上）',
+                  //   ),
+                  //   obscureText: true,
+                  // ),
                   SizedBox(height: 32),
                   // ユーザ登録ボタン
                   Padding(

@@ -6,9 +6,6 @@ import '../main.dart';
 import 'add_task.dart';
 import 'edit_tasklist.dart';
 
-// class TaskListPage extends ConsumerStatefulWidget {
-//   const TaskListPage({super.key});
-
 class TaskListPage extends ConsumerStatefulWidget {
   final bool displayButton;
 
@@ -94,7 +91,7 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                       Icon(Icons.add),
                       SizedBox(width: 8),
                       Text(
-                        "やりたいことを追加",
+                        "予定を追加",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )
                     ],
@@ -272,7 +269,7 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                       Icon(Icons.add),
                       SizedBox(width: 8),
                       Text(
-                        "やりたいことを追加",
+                        "予定を追加",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )
                     ],
