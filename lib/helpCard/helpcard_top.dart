@@ -135,10 +135,37 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                                 },
                               ),
                               IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () async {
-                                    final user = ref.read(userProvider);
-                                    if (user != null) {
+                                icon: Icon(Icons.delete, color: Colors.red),
+                                onPressed: () async {
+                                  final user = ref.read(userProvider);
+                                  if (user != null) {
+                                    final shouldDelete = await showDialog<bool>(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('確認'),
+                                          content: Text('本当に削除してよいですか？'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(false); // Cancel
+                                              },
+                                              child: Text('いいえ'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context)
+                                                    .pop(true); // Confirm
+                                              },
+                                              child: Text('はい'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+
+                                    if (shouldDelete == true) {
                                       await FirebaseFirestore.instance
                                           .collection('users')
                                           .doc(user.uid)
@@ -147,7 +174,23 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                                           .delete();
                                       _refreshHelpCards(); // データを再読み込み
                                     }
-                                  }),
+                                  }
+                                },
+                              )
+                              // IconButton(
+                              //     icon: Icon(Icons.delete, color: Colors.red),
+                              //     onPressed: () async {
+                              //       final user = ref.read(userProvider);
+                              //       if (user != null) {
+                              //         await FirebaseFirestore.instance
+                              //             .collection('users')
+                              //             .doc(user.uid)
+                              //             .collection('helpcard')
+                              //             .doc(helpCard['id']) // ドキュメントIDを指定
+                              //             .delete();
+                              //         _refreshHelpCards(); // データを再読み込み
+                              //       }
+                              //     }),
                             ],
                           ),
                         ),
