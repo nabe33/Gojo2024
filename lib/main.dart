@@ -7,6 +7,7 @@ import 'dart:async';
 import 'toppage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'alarm_test.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final userProvider = StateProvider<User?>((ref) => null);
 
@@ -25,6 +26,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        // textTheme: GoogleFonts.notoSansJpTextTheme(),
+        // textTheme: GoogleFonts.bizUdGothicTextTheme(),
       ),
       navigatorKey: AlarmPage.navigatorKey, // navigatorKey を設定
       home: SplashScreen(), // 最初にスプラッシュ画面を表示
