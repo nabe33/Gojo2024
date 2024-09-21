@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'helpCard/helpcard_top.dart';
 import 'fixed_supports/support1.dart';
 import 'tasklist/tasklist_top.dart';
+import 'toppage.dart';
 
 class TabsTopPage extends StatefulWidget {
   const TabsTopPage({super.key});
@@ -18,20 +19,55 @@ class _TabsTopPageState extends State<TabsTopPage> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/images/GOJO.png', height: 50),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TopPage()),
+                    );
+                  },
+                  child: Image.asset('assets/images/GOJO.png', height: 50),
+                ),
+                // Image.asset('assets/images/GOJO.png', height: 50),
               ],
             ),
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(
-                  text: '今日の予定',
+                  child: Text(
+                    '今日の予定',
+                    style: TextStyle(
+                      color: Colors.orange, // 文字色を指定
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(0.5, 0.5),
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Tab(
-                  text: 'ご協力依頼',
+                  child: Text(
+                    'ご協力依頼',
+                    style: TextStyle(
+                      color: Colors.orange, // 文字色を指定
+                      fontSize: 20, // フォントの大きさを指定
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(0.5, 0.5),
+                          color: Colors.black,
+                        ),
+                      ], // フォントの大きさを指定
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -50,73 +50,76 @@ class _EditHelpCardState extends ConsumerState<EditHelpCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        toolbarHeight: 100.0,
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/GOJO.png', height: 50),
-            Text(
-              'ヘルプカード編集',
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                labelText: 'どういった状況でこのカードを使いますか？',
-                labelStyle: TextStyle(fontSize: 16),
+      appBar: MyAppBar(text: 'ヘルプカード編集'),
+      // AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   toolbarHeight: 100.0,
+      //   title: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Image.asset('assets/images/GOJO.png', height: 50),
+      //       Text(
+      //         'ヘルプカード編集',
+      //         style: TextStyle(
+      //             fontSize: 20,
+      //             color: Colors.orange,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: InputDecoration(
+                  labelText: 'どういった状況でこのカードを使いますか？',
+                  labelStyle: TextStyle(fontSize: 16),
+                ),
               ),
-            ),
-            SizedBox(height: 24),
-            TextField(
-              controller: _contentsController,
-              decoration: InputDecoration(
-                labelText: 'どう手伝って欲しいですか？',
-                labelStyle: TextStyle(fontSize: 16),
+              SizedBox(height: 24),
+              TextField(
+                controller: _contentsController,
+                decoration: InputDecoration(
+                  labelText: 'どう手伝って欲しいですか？',
+                  labelStyle: TextStyle(fontSize: 16),
+                ),
+                maxLines: 8,
               ),
-              maxLines: 8,
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                _saveChanges();
-                // await saveDataToFirestore(
-                //   titleController.text,
-                //   contentsController.text,
-                // );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('ヘルプカードを保存しました')),
-                );
-                // Navigator.pop(context);
-              },
-              style: ElevatedButton.styleFrom(
-                  elevation: 4,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.inversePrimary),
-              child: Text(
-                '保存',
-                style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () async {
+                  _saveChanges();
+                  // await saveDataToFirestore(
+                  //   titleController.text,
+                  //   contentsController.text,
+                  // );
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('ヘルプカードを保存しました')),
+                  );
+                  // Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                    elevation: 4,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.inversePrimary),
+                child: Text(
+                  '保存',
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            // ElevatedButton(
-            //   onPressed: _saveChanges,
-            //   child: Text('保存'),
-            // ),
-          ],
+              // ElevatedButton(
+              //   onPressed: _saveChanges,
+              //   child: Text('保存'),
+              // ),
+            ],
+          ),
         ),
       ),
     );

@@ -58,110 +58,114 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        toolbarHeight: 100.0,
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/GOJO.png', height: 50),
-            Text(
-              '今日の予定編集',
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text('時間:', style: TextStyle(fontSize: 16)),
-                SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: () async {
-                    final TimeOfDay? picked = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                    if (picked != null) {
-                      setState(() {
-                        _timeController.text = MaterialLocalizations.of(context)
-                            .formatTimeOfDay(picked,
-                                alwaysUse24HourFormat: true);
-                      });
-                    }
-                  },
-                  child: Text(_timeController.text.isEmpty
-                      ? '時間を選択'
-                      : _timeController.text),
+      appBar: MyAppBar(text: '今日の予定編集'),
+      // AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   toolbarHeight: 100.0,
+      //   title: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Image.asset('assets/images/GOJO.png', height: 50),
+      //       Text(
+      //         '今日の予定編集',
+      //         style: TextStyle(
+      //             fontSize: 20,
+      //             color: Colors.orange,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text('時間:', style: TextStyle(fontSize: 16)),
+                  SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final TimeOfDay? picked = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (picked != null) {
+                        setState(() {
+                          _timeController.text =
+                              MaterialLocalizations.of(context).formatTimeOfDay(
+                                  picked,
+                                  alwaysUse24HourFormat: true);
+                        });
+                      }
+                    },
+                    child: Text(_timeController.text.isEmpty
+                        ? '時間を選択'
+                        : _timeController.text),
+                  ),
+                ],
+              ),
+              SizedBox(height: 24),
+              TextField(
+                controller: _taskController,
+                decoration: InputDecoration(
+                  labelText: 'やること',
+                  labelStyle: TextStyle(fontSize: 16),
                 ),
-              ],
-            ),
-            SizedBox(height: 24),
-            TextField(
-              controller: _taskController,
-              decoration: InputDecoration(
-                labelText: 'やること',
-                labelStyle: TextStyle(fontSize: 16),
               ),
-            ),
-            SizedBox(height: 24),
-            TextField(
-              controller: _placeController,
-              decoration: InputDecoration(
-                labelText: '場所',
-                labelStyle: TextStyle(fontSize: 16),
+              SizedBox(height: 24),
+              TextField(
+                controller: _placeController,
+                decoration: InputDecoration(
+                  labelText: '場所',
+                  labelStyle: TextStyle(fontSize: 16),
+                ),
               ),
-            ),
-            SizedBox(height: 24),
-            TextField(
-              controller: _memoController,
-              decoration: InputDecoration(
-                labelText: 'メモ',
-                labelStyle: TextStyle(fontSize: 16),
+              SizedBox(height: 24),
+              TextField(
+                controller: _memoController,
+                decoration: InputDecoration(
+                  labelText: 'メモ',
+                  labelStyle: TextStyle(fontSize: 16),
+                ),
+                maxLines: 8,
               ),
-              maxLines: 8,
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                _saveChanges();
-                // await saveDataToFirestore(
-                //   titleController.text,
-                //   contentsController.text,
-                // );
-                // アラーム設定
-                AlarmPage().cancelAllAlarms();
-                AlarmPage().fetchAndSetAlarm(context);
-                //
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('今日の予定を保存しました')),
-                );
-                // Navigator.pop(context);
-              },
-              style: ElevatedButton.styleFrom(
-                  elevation: 4,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.inversePrimary),
-              child: Text(
-                '保存',
-                style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () async {
+                  _saveChanges();
+                  // await saveDataToFirestore(
+                  //   titleController.text,
+                  //   contentsController.text,
+                  // );
+                  // アラーム設定
+                  AlarmPage().cancelAllAlarms();
+                  AlarmPage().fetchAndSetAlarm(context);
+                  //
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('今日の予定を保存しました')),
+                  );
+                  // Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                    elevation: 4,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.inversePrimary),
+                child: Text(
+                  '保存',
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            // ElevatedButton(
-            //   onPressed: _saveChanges,
-            //   child: Text('保存'),
-            // ),
-          ],
+              // ElevatedButton(
+              //   onPressed: _saveChanges,
+              //   child: Text('保存'),
+              // ),
+            ],
+          ),
         ),
       ),
     );

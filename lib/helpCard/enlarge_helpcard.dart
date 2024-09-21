@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gojo202409/main.dart';
 import 'show_support_hint.dart';
 import '../tasklist/tasklist_top.dart';
 
@@ -10,23 +11,24 @@ class EnlargeHelpCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        toolbarHeight: 100.0,
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/GOJO.png', height: 50),
-            Text(
-              'ご協力依頼',
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+      appBar: MyAppBar(text: 'ご協力依頼'),
+      // AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   toolbarHeight: 100.0,
+      //   title: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Image.asset('assets/images/GOJO.png', height: 50),
+      //       Text(
+      //         'ご協力依頼',
+      //         style: TextStyle(
+      //             fontSize: 20,
+      //             color: Colors.orange,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(

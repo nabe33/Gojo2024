@@ -44,23 +44,24 @@ class ShowSupportHintPage extends ConsumerWidget {
 
     if (user == null) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          toolbarHeight: 100.0,
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/images/GOJO.png', height: 50),
-              Text(
-                'サポート方法のヒント',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.orange,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
+        // appBar: MyAppBar(text: 'サポート方法のヒント',),
+        // AppBar(
+        //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        //   toolbarHeight: 100.0,
+        //   title: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Image.asset('assets/images/GOJO.png', height: 50),
+        //       Text(
+        //         'サポート方法のヒント',
+        //         style: TextStyle(
+        //             fontSize: 20,
+        //             color: Colors.orange,
+        //             fontWeight: FontWeight.bold),
+        //       ),
+        //     ],
+        //   ),
+        // ),
         body: Center(
           child: Text('エラー：ユーザーが見つかりません'),
         ),
