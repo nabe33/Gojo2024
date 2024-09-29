@@ -232,18 +232,18 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                                             Navigator.of(
                                                                     context)
                                                                 .pop(
-                                                                    false); // Cancel
+                                                                    true); // Cancel
                                                           },
-                                                          child: Text('いいえ'),
+                                                          child: Text('はい'),
                                                         ),
                                                         TextButton(
                                                           onPressed: () {
                                                             Navigator.of(
                                                                     context)
                                                                 .pop(
-                                                                    true); // Confirm
+                                                                    false); // Confirm
                                                           },
-                                                          child: Text('はい'),
+                                                          child: Text('いいえ'),
                                                         ),
                                                       ],
                                                     );
