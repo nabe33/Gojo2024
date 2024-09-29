@@ -17,13 +17,13 @@ class EnlargeHelpCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Text(
-                'ご協力お願い',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 20),
+            // Center(
+            //   child: Text(
+            //     'ご協力お願い',
+            //     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // SizedBox(height: 20),
             Center(
               child: Text(
                 '私は認知症です',
