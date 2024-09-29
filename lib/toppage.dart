@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'tabs_top.dart';
 import 'mypage.dart';
 
@@ -17,14 +17,18 @@ class _TopPageState extends State<TopPage> {
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    // _fetchData();
   }
 
+  // 以下の処理は無意味？
+  /*
   void _fetchData() {
     final docRef = FirebaseFirestore.instance
         .collection("cities")
         .orderBy("name", descending: true)
         .limit(3);
+
+    print("docRef: $docRef");
 
     docRef.get().then(
       (event) {
@@ -36,10 +40,13 @@ class _TopPageState extends State<TopPage> {
         setState(() {
           _dataList = dataList;
         });
+
+        print("dataList: $dataList");
       },
       onError: (error) => print("Error completing: $error"),
     );
   }
+*/
 
   @override
   Widget build(BuildContext context) {
