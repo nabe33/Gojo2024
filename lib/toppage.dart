@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'main.dart';
 import 'tabs_top.dart';
 import 'mypage.dart';
 
@@ -12,7 +14,7 @@ class TopPage extends StatefulWidget {
 }
 
 class _TopPageState extends State<TopPage> {
-  List<String> _dataList = [];
+  // List<String> _dataList = [];
 
   @override
   void initState() {
@@ -125,7 +127,17 @@ class _TopPageState extends State<TopPage> {
                 SizedBox(height: 12),
 
                 SizedBox(height: 12),
-                ElevatedButton(onPressed: () {}, child: Text('ログアウト')),
+                ElevatedButton(
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                      // SharedPreferences prefs = await SharedPreferences.getInstance();
+                      // await prefs.setBool('isLoggedIn', false);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyLogin()),
+                      );
+                    },
+                    child: Text('ログアウト')),
                 SizedBox(height: 12),
               ],
             ),
