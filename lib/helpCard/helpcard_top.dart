@@ -73,128 +73,145 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                     itemBuilder: (context, index) {
                       final helpCard = helpCards[index];
                       return Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        shadowColor: Colors.blue,
-                        child: ListTile(
-                          title: Text(helpCard['title'] ?? 'No Title'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TextButton(
-                                onPressed: () async {
-                                  final result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          EnlargeHelpCard(helpCard: helpCard),
-                                    ),
-                                  );
-                                  if (result == true) {
-                                    _refreshHelpCards(); // Refresh the list if changes were made
-                                  }
-                                },
-                                child: Text(
-                                  '拡大',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                              // IconButton(
-                              //   icon: Icon(Icons.lens, color: Colors.blue),
-                              //   onPressed: () async {
-                              //     final result = await Navigator.push(
-                              //       context,
-                              //       MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             EnlargeHelpCard(helpCard: helpCard),
-                              //       ),
-                              //     );
-                              //     if (result == true) {
-                              //       _refreshHelpCards(); // Refresh the list if changes were made
-                              //     }
-                              //   },
-                              // ),
-                              IconButton(
-                                icon: Icon(Icons.edit, color: Colors.blue),
-                                onPressed: () async {
-                                  final result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditHelpCard(helpCard: helpCard),
-                                    ),
-                                  );
-                                  if (result == true) {
-                                    _refreshHelpCards(); // Refresh the list if changes were made
-                                  }
-                                },
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.delete, color: Colors.red),
-                                onPressed: () async {
-                                  final user = ref.read(userProvider);
-                                  if (user != null) {
-                                    final shouldDelete = await showDialog<bool>(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('確認'),
-                                          content: Text('本当に削除してよいですか？'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop(false); // Cancel
-                                              },
-                                              child: Text('いいえ'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .pop(true); // Confirm
-                                              },
-                                              child: Text('はい'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-
-                                    if (shouldDelete == true) {
-                                      await FirebaseFirestore.instance
-                                          .collection('users')
-                                          .doc(user.uid)
-                                          .collection('helpcard')
-                                          .doc(helpCard['id']) // ドキュメントIDを指定
-                                          .delete();
-                                      _refreshHelpCards(); // データを再読み込み
-                                    }
-                                  }
-                                },
-                              )
-                              // IconButton(
-                              //     icon: Icon(Icons.delete, color: Colors.red),
-                              //     onPressed: () async {
-                              //       final user = ref.read(userProvider);
-                              //       if (user != null) {
-                              //         await FirebaseFirestore.instance
-                              //             .collection('users')
-                              //             .doc(user.uid)
-                              //             .collection('helpcard')
-                              //             .doc(helpCard['id']) // ドキュメントIDを指定
-                              //             .delete();
-                              //         _refreshHelpCards(); // データを再読み込み
-                              //       }
-                              //     }),
-                            ],
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
-                      );
+                          shadowColor: Colors.blue,
+                          //
+                          child: InkWell(
+                            onTap: () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      EnlargeHelpCard(helpCard: helpCard),
+                                ),
+                              );
+                              if (result == true) {
+                                _refreshHelpCards(); // Refresh the list if changes were made
+                              }
+                            },
+                            //
+                            child: ListTile(
+                              title: Text(helpCard['title'] ?? 'No Title'),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      final result = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => EnlargeHelpCard(
+                                              helpCard: helpCard),
+                                        ),
+                                      );
+                                      if (result == true) {
+                                        _refreshHelpCards(); // Refresh the list if changes were made
+                                      }
+                                    },
+                                    child: Text(
+                                      '拡大',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                  ),
+                                  // IconButton(
+                                  //   icon: Icon(Icons.lens, color: Colors.blue),
+                                  //   onPressed: () async {
+                                  //     final result = await Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             EnlargeHelpCard(helpCard: helpCard),
+                                  //       ),
+                                  //     );
+                                  //     if (result == true) {
+                                  //       _refreshHelpCards(); // Refresh the list if changes were made
+                                  //     }
+                                  //   },
+                                  // ),
+                                  IconButton(
+                                    icon: Icon(Icons.edit, color: Colors.blue),
+                                    onPressed: () async {
+                                      final result = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditHelpCard(helpCard: helpCard),
+                                        ),
+                                      );
+                                      if (result == true) {
+                                        _refreshHelpCards(); // Refresh the list if changes were made
+                                      }
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                    onPressed: () async {
+                                      final user = ref.read(userProvider);
+                                      if (user != null) {
+                                        final shouldDelete =
+                                            await showDialog<bool>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text('確認'),
+                                              content: Text('本当に削除してよいですか？'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(true); // Cancel
+                                                  },
+                                                  child: Text('はい'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context)
+                                                        .pop(false); // Confirm
+                                                  },
+                                                  child: Text('いいえ'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+
+                                        if (shouldDelete == true) {
+                                          await FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(user.uid)
+                                              .collection('helpcard')
+                                              .doc(
+                                                  helpCard['id']) // ドキュメントIDを指定
+                                              .delete();
+                                          _refreshHelpCards(); // データを再読み込み
+                                        }
+                                      }
+                                    },
+                                  )
+                                  // IconButton(
+                                  //     icon: Icon(Icons.delete, color: Colors.red),
+                                  //     onPressed: () async {
+                                  //       final user = ref.read(userProvider);
+                                  //       if (user != null) {
+                                  //         await FirebaseFirestore.instance
+                                  //             .collection('users')
+                                  //             .doc(user.uid)
+                                  //             .collection('helpcard')
+                                  //             .doc(helpCard['id']) // ドキュメントIDを指定
+                                  //             .delete();
+                                  //         _refreshHelpCards(); // データを再読み込み
+                                  //       }
+                                  //     }),
+                                ],
+                              ),
+                            ),
+                          ));
                     },
                   );
                 }
