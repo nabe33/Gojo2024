@@ -7,17 +7,68 @@ import 'dart:async';
 import 'toppage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'alarm_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:google_fonts/google_fonts.dart';
+// 明示的にWeb用のパッケージを読み込ませる
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:shared_preferences_web/shared_preferences_web.dart';
 
 final userProvider = StateProvider<User?>((ref) => null);
 
+// ユーザ情報を端末に保存
+// Future<void> loadUserFromPreferences(WidgetRef ref) async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   String? uid = prefs.getString('uid');
+//   if (uid != null) {
+//     User? user = FirebaseAuth.instance.currentUser;
+//     if (user != null && user.uid == uid) {
+//       ref.read(userProvider.notifier).state = user;
+//     }
+//   }
+// }
+
+Future<void> loadUserFromPreferences(Function(ProviderListenable) read) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? uid = prefs.getString('uid');
+  if (uid != null) {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null && user.uid == uid) {
+      read(userProvider.notifier).state = user;
+    }
+  }
+}
+
 void main() async {
+  // Web向けにプラグインを登録
+  SharedPreferencesPlugin.registerWith(Registrar());
+  //
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ProviderScope(child: MyApp()));
+
+  // Create a ProviderContainer to use the ref
+  final container = ProviderContainer();
+  await loadUserFromPreferences(container.read);
+
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: MyApp(),
+    ),
+  );
 }
+
+// void main() async {
+//   // Web向けにプラグインを登録
+//   SharedPreferencesPlugin.registerWith(Registrar());
+//   //
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   runApp(ProviderScope(child: MyApp()));
+// }
 
 class MyApp extends StatelessWidget {
   @override
@@ -48,10 +99,38 @@ class _SplashScreenState extends State<SplashScreen> {
     AlarmPage().fetchAndSetAlarm(context);
     // 2秒後にログイン画面に遷移する
     Timer(Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(
+      _checkLoginState();
+      // Navigator.of(context).pushReplacement(
+      //   MaterialPageRoute(builder: (context) => MyLogin()),
+      // );
+    });
+  }
+
+  // ログイン状態を確認して，ログインしていればトップページに遷移
+  Future<void> _checkLoginState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    if (isLoggedIn) {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user == null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => MyLogin()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => TopPage()),
+          );
+        }
+      });
+    } else {
+      Navigator.pushReplacement(
+        context,
         MaterialPageRoute(builder: (context) => MyLogin()),
       );
-    });
+    }
   }
 
   @override
@@ -219,21 +298,34 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                           password: _password,
                         ))
                             .user;
-                        ref.read(userProvider.notifier).state = user;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'ログイン成功: ${user?.email}',
-                              style:
-                                  TextStyle(color: Colors.green, fontSize: 24),
-                            ),
-                          ),
-                        );
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TopPage()),
-                        );
+                        //
+                        if (user != null) {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setBool('isLoggedIn', true);
+                          await prefs.setString('uid', user.uid);
+                          ref.read(userProvider.notifier).state = user;
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => TopPage()),
+                          );
+                        }
+                        //
+                        // ref.read(userProvider.notifier).state = user;
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //     content: Text(
+                        //       'ログイン成功: ${user?.email}',
+                        //       style:
+                        //           TextStyle(color: Colors.green, fontSize: 24),
+                        //     ),
+                        //   ),
+                        // );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const TopPage()),
+                        // );
                       } on FirebaseAuthException catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
