@@ -1,6 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 import 'tabs_top.dart';
 import 'mypage.dart';
@@ -15,13 +16,31 @@ class TopPage extends StatefulWidget {
 
 class _TopPageState extends State<TopPage> {
   // List<String> _dataList = [];
+  String? _uid;
+  Map<String, dynamic>? _userData;
 
   @override
   void initState() {
     super.initState();
+    _loadUserData();
     // _fetchData();
   }
 
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? uid = prefs.getString('uid');
+    if (uid != null) {
+      setState(() {
+        _uid = uid;
+      });
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      setState(() {
+        _userData = userDoc.data() as Map<String, dynamic>?;
+      });
+    }
+  }
+  // }
   // 以下の処理は無意味？
   /*
   void _fetchData() {
@@ -80,8 +99,15 @@ class _TopPageState extends State<TopPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image.asset('assets/images/image_m.jpg', height: 240), // イメージ画像
-                const SizedBox(height: 20),
+                Image.asset('assets/images/image_m.jpg', height: 200), // イメージ画像
+                const SizedBox(height: 12),
+                if (_userData != null) ...[
+                  Text(
+                    'ようこそ、${_userData!['name']}さん',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 12),
+                ],
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(12),
@@ -107,7 +133,7 @@ class _TopPageState extends State<TopPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 24),
                 // Spacer(),
                 ElevatedButton(
                   onPressed: () {
@@ -126,12 +152,14 @@ class _TopPageState extends State<TopPage> {
                 ),
                 SizedBox(height: 12),
 
-                SizedBox(height: 12),
+                // SizedBox(height: 12),
                 ElevatedButton(
                     onPressed: () async {
                       await FirebaseAuth.instance.signOut();
-                      // SharedPreferences prefs = await SharedPreferences.getInstance();
-                      // await prefs.setBool('isLoggedIn', false);
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('isLoggedIn', false);
+                      await prefs.remove('uid');
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => MyLogin()),
