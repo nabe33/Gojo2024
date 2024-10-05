@@ -40,34 +40,6 @@ class _TopPageState extends State<TopPage> {
       });
     }
   }
-  // }
-  // 以下の処理は無意味？
-  /*
-  void _fetchData() {
-    final docRef = FirebaseFirestore.instance
-        .collection("cities")
-        .orderBy("name", descending: true)
-        .limit(3);
-
-    print("docRef: $docRef");
-
-    docRef.get().then(
-      (event) {
-        print("成功!");
-        List<String> dataList = [];
-        for (var doc in event.docs) {
-          dataList.add('${doc.id} => ${doc.data()}');
-        }
-        setState(() {
-          _dataList = dataList;
-        });
-
-        print("dataList: $dataList");
-      },
-      onError: (error) => print("Error completing: $error"),
-    );
-  }
-*/
 
   @override
   Widget build(BuildContext context) {
@@ -75,24 +47,27 @@ class _TopPageState extends State<TopPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         toolbarHeight: 100.0,
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/GOJO.png', height: 50),
-            Text(
-              'やりたいことを叶える助け合いアプリ',
-              style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
+        title: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/GOJO.png', height: 50),
+              Text(
+                'やりたいことを叶える助け合いアプリ',
+                style: TextStyle(
+                    fontSize: 17,
+                    color: Color(0xFF7A4800),
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       ),
       // Body-----------------
       body: Center(
         child: Container(
-          color: Theme.of(context).colorScheme.inversePrimary,
+          color: Color(0xFF82D3E3),
+          // color: Theme.of(context).colorScheme.inversePrimary,
           padding: const EdgeInsets.all(12),
           child: SingleChildScrollView(
             // ここを追加
@@ -116,19 +91,25 @@ class _TopPageState extends State<TopPage> {
                         Text(
                           'マイページを作成していない人は下記から作成してください．作成済みマイペーシの編集も可能です．',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 17,
                           ),
                         ),
                         const SizedBox(height: 12),
                         ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyPageEdit()),
-                              );
-                            },
-                            child: Text('マイページ編集')),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyPageEdit()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xff82d3e3),
+                          ),
+                          child: Text('マイページ編集',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17)),
+                        ),
                       ],
                     ),
                   ),
@@ -146,11 +127,11 @@ class _TopPageState extends State<TopPage> {
                     'アプリの利用開始',
                     style: TextStyle(
                         fontSize: 24,
-                        color: Colors.orangeAccent,
+                        color: Color(0xffc14401),
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: 16),
 
                 // SizedBox(height: 12),
                 ElevatedButton(
@@ -166,7 +147,7 @@ class _TopPageState extends State<TopPage> {
                       );
                     },
                     child: Text('ログアウト')),
-                SizedBox(height: 12),
+                SizedBox(height: 4),
               ],
             ),
           ),

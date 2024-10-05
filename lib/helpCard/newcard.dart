@@ -69,7 +69,8 @@ class _MyPageEditState extends ConsumerState<NewCardPage> {
                 Text(
                   'どういった状況でこのカードを使いますか？',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 8),
@@ -86,7 +87,8 @@ class _MyPageEditState extends ConsumerState<NewCardPage> {
                 Text(
                   'どう手伝って欲しいですか？',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextField(
@@ -111,9 +113,9 @@ class _MyPageEditState extends ConsumerState<NewCardPage> {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                        elevation: 4,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inversePrimary),
+                      elevation: 4,
+                      backgroundColor: Color(0xff82d3e3),
+                    ),
                     child: Text('保存',
                         style: TextStyle(
                             fontSize: 24,

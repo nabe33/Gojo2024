@@ -126,11 +126,11 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                     label: RichText(
                       text: TextSpan(
                         text: '氏名',
-                        style: TextStyle(color: Colors.black, fontSize: 16.0),
+                        style: TextStyle(color: Colors.black, fontSize: 17.0),
                         children: [
                           TextSpan(
                             text: '（必須）',
-                            style: TextStyle(color: Colors.red, fontSize: 16.0),
+                            style: TextStyle(color: Colors.red, fontSize: 17.0),
                           ),
                         ],
                       ),
@@ -153,13 +153,15 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                   maxLines: 5,
                   decoration: InputDecoration(
                     labelText: 'サポートしてもらう際に気をつけてほしいこと',
+                    labelStyle: TextStyle(fontSize: 17.0),
                     hintText: '例）急な予定変更が苦手です\n「今日の予定」欄などを見て教えていただけると助かります．',
                     border: OutlineInputBorder(),
                   ),
                 ),
                 SizedBox(height: 24),
+                // 緊急連絡先
                 Card(
-                  color: Colors.green[100],
+                  color: Color(0xfffdf7dd),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
@@ -170,7 +172,7 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                           style: TextStyle(
                               fontSize: 18,
                               // fontWeight: FontWeight.bold,
-                              color: Colors.red),
+                              color: Color(0xffc1170b)),
                         ),
                         SizedBox(height: 16),
                         TextField(
@@ -217,9 +219,9 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                        elevation: 4,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inversePrimary),
+                      elevation: 4,
+                      backgroundColor: Color(0xff82d3e3),
+                    ),
                     child: Text('決定',
                         style: TextStyle(
                             fontSize: 24,

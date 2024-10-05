@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'helpCard/helpcard_top.dart';
-import 'fixed_supports/support1.dart';
 import 'tasklist/tasklist_top.dart';
 import 'toppage.dart';
 
@@ -19,21 +18,23 @@ class _TabsTopPageState extends State<TabsTopPage> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TopPage()),
-                    );
-                  },
-                  child: Image.asset('assets/images/GOJO.png', height: 50),
-                ),
-                // Image.asset('assets/images/GOJO.png', height: 50),
-              ],
+            backgroundColor: Color(0xFF82d3e3),
+            title: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TopPage()),
+                      );
+                    },
+                    child: Image.asset('assets/images/GOJO.png', height: 50),
+                  ),
+                  // Image.asset('assets/images/GOJO.png', height: 50),
+                ],
+              ),
             ),
             bottom: TabBar(
               tabs: <Widget>[
@@ -41,15 +42,15 @@ class _TabsTopPageState extends State<TabsTopPage> {
                   child: Text(
                     '今日の予定',
                     style: TextStyle(
-                      color: Colors.orange, // 文字色を指定
+                      color: Color(0xff7a4800), // 文字色を指定
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          offset: Offset(0.5, 0.5),
-                          color: Colors.black,
-                        ),
-                      ],
+                      // shadows: [
+                      //   Shadow(
+                      //     offset: Offset(0.5, 0.5),
+                      //     color: Colors.black,
+                      //   ),
+                      // ],
                     ),
                   ),
                 ),
@@ -57,15 +58,15 @@ class _TabsTopPageState extends State<TabsTopPage> {
                   child: Text(
                     'ご協力依頼',
                     style: TextStyle(
-                      color: Colors.orange, // 文字色を指定
+                      color: Color(0xff7a4800), // 文字色を指定
                       fontSize: 20, // フォントの大きさを指定
                       fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          offset: Offset(0.5, 0.5),
-                          color: Colors.black,
-                        ),
-                      ], // フォントの大きさを指定
+                      // shadows: [
+                      //   Shadow(
+                      //     offset: Offset(0.5, 0.5),
+                      //     color: Colors.black,
+                      //   ),
+                      // ], // フォントの大きさを指定
                     ),
                   ),
                 ),
