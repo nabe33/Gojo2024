@@ -52,7 +52,10 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ヘルプカード'),
+        title: Text(
+          'ヘルプカード',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
         children: [
@@ -94,7 +97,10 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                             },
                             //
                             child: ListTile(
-                              title: Text(helpCard['title'] ?? 'No Title'),
+                              title: Text(
+                                helpCard['title'] ?? 'No Title',
+                                style: TextStyle(color: Colors.black),
+                              ),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -114,9 +120,9 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                                     child: Text(
                                       '拡大',
                                       style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blue,
-                                      ),
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xff0a70c2),
+                                          fontSize: 17),
                                     ),
                                   ),
                                   // IconButton(
@@ -135,7 +141,8 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                                   //   },
                                   // ),
                                   IconButton(
-                                    icon: Icon(Icons.edit, color: Colors.blue),
+                                    icon: Icon(Icons.edit,
+                                        color: Color(0xff0a70c2)),
                                     onPressed: () async {
                                       final result = await Navigator.push(
                                         context,
@@ -150,7 +157,8 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                                     },
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.delete, color: Colors.red),
+                                    icon: Icon(Icons.delete,
+                                        color: Color(0xffda1a0c)),
                                     onPressed: () async {
                                       final user = ref.read(userProvider);
                                       if (user != null) {
@@ -160,7 +168,12 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                                           builder: (BuildContext context) {
                                             return AlertDialog(
                                               title: Text('確認'),
-                                              content: Text('本当に削除してよいですか？'),
+                                              content: Text(
+                                                '本当に削除してよいですか？',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20),
+                                              ),
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () {
@@ -219,28 +232,33 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
             ),
           ),
           SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NewCardPage()),
-              );
-              _refreshHelpCards();
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.add, size: 28, color: Colors.black),
-                SizedBox(width: 8),
-                Text(
-                  'カードを追加',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28,
-                    color: Colors.black,
+          Center(
+            child: ElevatedButton(
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NewCardPage()),
+                );
+                _refreshHelpCards();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xff82d3e3), // 背景色を指定
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.add, size: 24, color: Colors.black),
+                  SizedBox(width: 8),
+                  Text(
+                    'カードを追加',
+                    style: TextStyle(
+                      // fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SizedBox(height: 16),

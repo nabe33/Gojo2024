@@ -67,7 +67,8 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('今日の予定一覧'),
+        title: Text('今日の予定一覧',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ),
       body: Column(
         children: [
@@ -85,6 +86,9 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                       _refreshTaskList(); // Refresh the list if changes were made
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff82d3e3), // 背景色を指定
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -92,7 +96,10 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                       SizedBox(width: 8),
                       Text(
                         "予定を追加",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            // fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Colors.black),
                       )
                     ],
                   )),
@@ -143,6 +150,7 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                       taskList['time'] ?? '時間が保存されていません',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontSize: 17,
                                       ),
                                     ),
                                     Text('：'),
@@ -152,6 +160,7 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                         maxLines: 3,
                                         softWrap: true,
                                         overflow: TextOverflow.visible,
+                                        style: TextStyle(fontSize: 17),
                                       ),
                                     ),
                                   ],
@@ -160,6 +169,7 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                   icon: Icon(isExpanded
                                       ? Icons.expand_less
                                       : Icons.expand_more),
+                                  iconSize: 32,
                                   onPressed: () {
                                     setState(() {
                                       _expandedStates[taskList['id']] =
@@ -179,12 +189,12 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                     children: [
                                       Text(
                                         '　メモ：${taskList['memo'] ?? 'メモが保存されていません'}',
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 17),
                                       ),
                                       SizedBox(height: 8),
                                       Text(
                                         '　場所：${taskList['place'] ?? '場所が保存されていません'}',
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 17),
                                       ),
                                       SizedBox(height: 8),
                                       // 下部の編集・削除ボタン
@@ -194,7 +204,8 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                         children: [
                                           IconButton(
                                             icon: Icon(Icons.edit,
-                                                color: Colors.blue),
+                                                color: Color(0xff0a70c2)),
+                                            iconSize: 32,
                                             onPressed: () async {
                                               final result =
                                                   await Navigator.push(
@@ -212,7 +223,8 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                           ),
                                           IconButton(
                                             icon: Icon(Icons.delete,
-                                                color: Colors.red),
+                                                color: Color(0xffda1a0c)),
+                                            iconSize: 32,
                                             onPressed: () async {
                                               final user =
                                                   ref.read(userProvider);
@@ -224,8 +236,10 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                                                       (BuildContext context) {
                                                     return AlertDialog(
                                                       title: Text('確認'),
-                                                      content:
-                                                          Text('本当に削除してよいですか？'),
+                                                      content: Text(
+                                                          '本当に削除してよいですか？',
+                                                          style: TextStyle(
+                                                              fontSize: 20)),
                                                       actions: <Widget>[
                                                         TextButton(
                                                           onPressed: () {
@@ -321,6 +335,9 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                       _refreshTaskList(); // Refresh the list if changes were made
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff82d3e3), // 背景色を指定
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -328,7 +345,10 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
                       SizedBox(width: 8),
                       Text(
                         "予定を追加",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            // fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Colors.black),
                       )
                     ],
                   )),

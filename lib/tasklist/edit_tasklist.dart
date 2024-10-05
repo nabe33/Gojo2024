@@ -83,7 +83,7 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
             children: [
               Row(
                 children: [
-                  Text('時間:', style: TextStyle(fontSize: 16)),
+                  Text('時間:', style: TextStyle(fontSize: 17)),
                   SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () async {
@@ -111,7 +111,7 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
                 controller: _taskController,
                 decoration: InputDecoration(
                   labelText: 'やること',
-                  labelStyle: TextStyle(fontSize: 16),
+                  labelStyle: TextStyle(fontSize: 17),
                 ),
               ),
               SizedBox(height: 24),
@@ -119,7 +119,7 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
                 controller: _placeController,
                 decoration: InputDecoration(
                   labelText: '場所',
-                  labelStyle: TextStyle(fontSize: 16),
+                  labelStyle: TextStyle(fontSize: 17),
                 ),
               ),
               SizedBox(height: 24),
@@ -127,9 +127,9 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
                 controller: _memoController,
                 decoration: InputDecoration(
                   labelText: 'メモ',
-                  labelStyle: TextStyle(fontSize: 16),
+                  labelStyle: TextStyle(fontSize: 17),
                 ),
-                maxLines: 8,
+                maxLines: 6,
               ),
               SizedBox(height: 16),
               ElevatedButton(
@@ -149,9 +149,10 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
                   // Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                    elevation: 4,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.inversePrimary),
+                  elevation: 4,
+                  backgroundColor: Color(0xff82d3e3),
+                ),
+                // Theme.of(context).colorScheme.inversePrimary),
                 child: Text(
                   '保存',
                   style: TextStyle(

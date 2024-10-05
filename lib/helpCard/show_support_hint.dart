@@ -69,30 +69,31 @@ class ShowSupportHintPage extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        toolbarHeight: 100.0,
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/GOJO.png', height: 50),
-            Text(
-              'サポート方法のヒント',
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+      appBar: MyAppBar(text: 'サポート方法のヒント'),
+      // AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   toolbarHeight: 100.0,
+      //   title: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Image.asset('assets/images/GOJO.png', height: 50),
+      //       Text(
+      //         'サポート方法のヒント',
+      //         style: TextStyle(
+      //             fontSize: 20,
+      //             color: Colors.orange,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 36),
+              SizedBox(height: 24),
               FutureBuilder<String>(
                 future: fetchMemo(ref, user.uid),
                 builder: (context, snapshot) {
@@ -119,7 +120,7 @@ class ShowSupportHintPage extends ConsumerWidget {
                           SizedBox(height: 8),
                           Text(
                             memo,
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(fontSize: 17),
                           ),
                         ],
                       ),
@@ -159,15 +160,15 @@ class ShowSupportHintPage extends ConsumerWidget {
                                 children: [
                                   Text(
                                     '・氏名: ${contact['name'] ?? 'ーー'}',
-                                    style: TextStyle(fontSize: 18),
+                                    style: TextStyle(fontSize: 17),
                                   ),
                                   Text(
                                     '・続柄: ${contact['relation'] ?? 'ーー'}',
-                                    style: TextStyle(fontSize: 18),
+                                    style: TextStyle(fontSize: 17),
                                   ),
                                   Text(
                                     '・電話番号: ${contact['phone'] ?? 'ーー'}',
-                                    style: TextStyle(fontSize: 18),
+                                    style: TextStyle(fontSize: 17),
                                   ),
                                   SizedBox(height: 8),
                                 ],

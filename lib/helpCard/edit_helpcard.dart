@@ -77,7 +77,7 @@ class _EditHelpCardState extends ConsumerState<EditHelpCard> {
                 controller: _titleController,
                 decoration: InputDecoration(
                   labelText: 'どういった状況でこのカードを使いますか？',
-                  labelStyle: TextStyle(fontSize: 16),
+                  labelStyle: TextStyle(fontSize: 17),
                 ),
               ),
               SizedBox(height: 24),
@@ -85,7 +85,7 @@ class _EditHelpCardState extends ConsumerState<EditHelpCard> {
                 controller: _contentsController,
                 decoration: InputDecoration(
                   labelText: 'どう手伝って欲しいですか？',
-                  labelStyle: TextStyle(fontSize: 16),
+                  labelStyle: TextStyle(fontSize: 17),
                 ),
                 maxLines: 8,
               ),
@@ -103,9 +103,9 @@ class _EditHelpCardState extends ConsumerState<EditHelpCard> {
                   // Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                    elevation: 4,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.inversePrimary),
+                  elevation: 4,
+                  backgroundColor: Color(0xFF82d3e3),
+                ),
                 child: Text(
                   '保存',
                   style: TextStyle(

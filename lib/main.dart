@@ -363,29 +363,32 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      backgroundColor: Color(0xff82d3e3),
+      // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       toolbarHeight: 100.0,
-      title: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TopPage()),
-              );
-            },
-            child: Image.asset('assets/images/GOJO.png', height: 50),
-          ),
-          // Image.asset('assets/images/GOJO.png', height: 50),
-          Text(
-            text,
-            style: TextStyle(
-                fontSize: 20,
-                color: Colors.orange,
-                fontWeight: FontWeight.bold),
-          ),
-        ],
+      title: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TopPage()),
+                );
+              },
+              child: Image.asset('assets/images/GOJO.png', height: 50),
+            ),
+            // Image.asset('assets/images/GOJO.png', height: 50),
+            Text(
+              text,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xff7a4800),
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }

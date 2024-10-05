@@ -99,7 +99,7 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                 Text(
                   '時間',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -115,7 +115,7 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                 Text(
                   'やること',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -147,7 +147,7 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                 Text(
                   '場所',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -163,13 +163,13 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                 Text(
                   'メモ',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextField(
                   controller: memoController,
-                  maxLines: 8,
+                  maxLines: 6,
                   decoration: InputDecoration(
                     hintText: '例）病院でいつもの薬をもらう．',
                     border: OutlineInputBorder(),
@@ -195,12 +195,13 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                     Navigator.pop(context, true);
                   },
                   style: ElevatedButton.styleFrom(
-                      elevation: 4,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.inversePrimary),
+                    elevation: 4,
+                    backgroundColor: Color(0xff82d3e3),
+                  ),
+                  // Theme.of(context).colorScheme.inversePrimary),
                   child: Text('保存',
                       style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           color: Colors.black,
                           fontWeight: FontWeight.bold)),
                 ),
