@@ -8,7 +8,7 @@ import 'toppage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'alarm_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 // 明示的にWeb用のパッケージを読み込ませる
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
@@ -74,11 +74,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Gojo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         // textTheme: GoogleFonts.notoSansJpTextTheme(),
-        // textTheme: GoogleFonts.bizUdGothicTextTheme(),
+        textTheme: GoogleFonts.bizUDPGothicTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       navigatorKey: AlarmPage.navigatorKey, // navigatorKey を設定
       home: SplashScreen(), // 最初にスプラッシュ画面を表示
