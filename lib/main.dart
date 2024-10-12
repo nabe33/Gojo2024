@@ -252,6 +252,53 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 SizedBox(height: 32),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
+                  // ログインボタン
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        final User? user = (await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                          email: _email,
+                          password: _password,
+                        ))
+                            .user;
+                        //
+                        if (user != null) {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setBool('isLoggedIn', true);
+                          await prefs.setString('uid', user.uid);
+                          ref.read(userProvider.notifier).state = user;
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => TopPage()),
+                          );
+                        }
+                      } on FirebaseAuthException catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'ログイン失敗（ユーザ登録しましたか？）',
+                              style: TextStyle(color: Colors.red, fontSize: 32),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xff82d3e3),
+                    ),
+                    child: const Text('ログイン',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24)),
+                  ),
+                ),
+                SizedBox(height: 32),
+                // ユーザ登録ボタン
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     onPressed: () async {
                       try {
@@ -285,63 +332,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                     child: const Text('ユーザ登録（新規作成）',
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        final User? user = (await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                          email: _email,
-                          password: _password,
-                        ))
-                            .user;
-                        //
-                        if (user != null) {
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setBool('isLoggedIn', true);
-                          await prefs.setString('uid', user.uid);
-                          ref.read(userProvider.notifier).state = user;
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => TopPage()),
-                          );
-                        }
-                        //
-                        // ref.read(userProvider.notifier).state = user;
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: Text(
-                        //       'ログイン成功: ${user?.email}',
-                        //       style:
-                        //           TextStyle(color: Colors.green, fontSize: 24),
-                        //     ),
-                        //   ),
-                        // );
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => const TopPage()),
-                        // );
-                      } on FirebaseAuthException catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'ログイン失敗（ユーザ登録しましたか？）',
-                              style: TextStyle(color: Colors.red, fontSize: 32),
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text('ログイン',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24)),
                   ),
                 ),
               ],

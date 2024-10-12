@@ -89,7 +89,7 @@ class _TopPageState extends State<TopPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          'マイページを作成していない人は下記から作成してください．作成済みマイペーシの編集も可能です．',
+                          'マイページを作成していない人は下記から作成してください．作成済みマイページの編集も可能です．',
                           style: TextStyle(
                             fontSize: 17,
                           ),

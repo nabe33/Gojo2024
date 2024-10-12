@@ -83,11 +83,18 @@ class _MyPageEditState extends ConsumerState<NewCardPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 24),
                 Text(
                   'どう手伝って欲しいですか？',
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '（注：ヘルプカードを見せるときに表示される文章です）',
+                  style: TextStyle(
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -108,7 +115,15 @@ class _MyPageEditState extends ConsumerState<NewCardPage> {
                         contentsController.text,
                       );
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('ヘルプカードを保存しました')),
+                        SnackBar(
+                          content: Text('ヘルプカードを保存しました',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold)),
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Color(0xffc8e6c9),
+                        ),
                       );
                       Navigator.pop(context);
                     },

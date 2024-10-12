@@ -125,7 +125,7 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                     labelText: null,
                     label: RichText(
                       text: TextSpan(
-                        text: '氏名',
+                        text: 'アプリ利用者の氏名',
                         style: TextStyle(color: Colors.black, fontSize: 17.0),
                         children: [
                           TextSpan(
@@ -142,10 +142,15 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                 TextField(
                   controller: conditionController,
                   decoration: InputDecoration(
-                    labelText: 'ご自身の状態',
+                    labelText: 'アプリ利用者の状態',
                     hintText: '例）認知症',
                     border: OutlineInputBorder(),
                   ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  '下記⇓はヘルプカードを見せるときに表示される文章です',
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 16),
                 TextField(
@@ -214,7 +219,15 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                         urgentPhoneController.text,
                       );
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('データを保存しました')),
+                        SnackBar(
+                          content: Text('データを保存しました',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold)),
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Color(0xffc8e6c9),
+                        ),
                       );
                       Navigator.pop(context);
                     },
@@ -222,7 +235,7 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                       elevation: 4,
                       backgroundColor: Color(0xff82d3e3),
                     ),
-                    child: Text('決定',
+                    child: Text('保存',
                         style: TextStyle(
                             fontSize: 24,
                             color: Colors.black,

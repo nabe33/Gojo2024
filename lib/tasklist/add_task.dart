@@ -49,6 +49,13 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
+      //
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
     );
     if (picked != null && picked != selectedTime) {
       setState(() {
