@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 import 'tabs_top.dart';
 import 'mypage.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 // トップページ：マイページ設定，アプリを始める，ログアウト，チュートリアル
 class TopPage extends StatefulWidget {
