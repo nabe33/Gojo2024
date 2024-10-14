@@ -80,17 +80,32 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          shadowColor: Colors.blue,
+                          shadowColor: Colors.orange,
                           //
                           child: InkWell(
                             onTap: () async {
                               final result = await Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
+                                PageRouteBuilder(
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
                                       EnlargeHelpCard(helpCard: helpCard),
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return ScaleTransition(
+                                      scale: animation,
+                                      child: child,
+                                    );
+                                  },
                                 ),
                               );
+                              // final result = await Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         EnlargeHelpCard(helpCard: helpCard),
+                              //   ),
+                              // );
                               if (result == true) {
                                 _refreshHelpCards(); // Refresh the list if changes were made
                               }
@@ -108,11 +123,29 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
                                     onPressed: () async {
                                       final result = await Navigator.push(
                                         context,
-                                        MaterialPageRoute(
-                                          builder: (context) => EnlargeHelpCard(
-                                              helpCard: helpCard),
+                                        PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                                  secondaryAnimation) =>
+                                              EnlargeHelpCard(
+                                                  helpCard: helpCard),
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return ScaleTransition(
+                                              scale: animation,
+                                              child: child,
+                                            );
+                                          },
                                         ),
                                       );
+                                      // final result = await Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) => EnlargeHelpCard(
+                                      //         helpCard: helpCard),
+                                      //   ),
+                                      // );
                                       if (result == true) {
                                         _refreshHelpCards(); // Refresh the list if changes were made
                                       }
