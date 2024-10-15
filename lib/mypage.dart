@@ -140,6 +140,11 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                   ),
                 ),
                 SizedBox(height: 16),
+                Text(
+                  '下記2つ⇓はヘルプカードを見せるときに表示される文章です',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 16),
                 TextField(
                   controller: conditionController,
                   decoration: InputDecoration(
@@ -149,11 +154,7 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                   ),
                 ),
                 SizedBox(height: 16),
-                Text(
-                  '下記⇓はヘルプカードを見せるときに表示される文章です',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 16),
+
                 TextField(
                   controller: memoController,
                   maxLines: 5,

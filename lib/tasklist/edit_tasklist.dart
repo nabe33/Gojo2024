@@ -90,6 +90,14 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
                       final TimeOfDay? picked = await showTimePicker(
                         context: context,
                         initialTime: TimeOfDay.now(),
+                        //
+                        builder: (BuildContext context, Widget? child) {
+                          return MediaQuery(
+                            data: MediaQuery.of(context)
+                                .copyWith(alwaysUse24HourFormat: true),
+                            child: child!,
+                          );
+                        },
                       );
                       if (picked != null) {
                         setState(() {
@@ -100,9 +108,15 @@ class _EditTaskListState extends ConsumerState<EditTaskList> {
                         });
                       }
                     },
-                    child: Text(_timeController.text.isEmpty
-                        ? '時間を選択'
-                        : _timeController.text),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 4,
+                      backgroundColor: Color(0xff82d3e3),
+                    ),
+                    child: Text(
+                        _timeController.text.isEmpty
+                            ? '時間を選択'
+                            : _timeController.text,
+                        style: TextStyle(color: Colors.black, fontSize: 17)),
                   ),
                 ],
               ),
