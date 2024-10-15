@@ -52,6 +52,7 @@ class _HelpCardListPageState extends ConsumerState<HelpCardListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 戻るアイコンを表示しない
         title: Text(
           'ヘルプカード',
           style: TextStyle(fontWeight: FontWeight.bold),
