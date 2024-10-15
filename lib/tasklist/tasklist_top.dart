@@ -67,6 +67,7 @@ class _HelpCardListPageState extends ConsumerState<TaskListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 戻るアイコンを表示しない
         title: Text('今日の予定一覧',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ),

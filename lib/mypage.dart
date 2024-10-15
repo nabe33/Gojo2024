@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'main.dart';
+import 'toppage.dart';
 
 // マイページ編集
 class MyPageEdit extends ConsumerStatefulWidget {
@@ -229,7 +230,11 @@ class _MyPageEditState extends ConsumerState<MyPageEdit> {
                           backgroundColor: Color(0xffc8e6c9),
                         ),
                       );
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TopPage()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 4,

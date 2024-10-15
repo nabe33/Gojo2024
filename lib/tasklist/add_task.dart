@@ -113,9 +113,19 @@ class _MyPageEditState extends ConsumerState<AddTaskPage> {
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => _selectTime(context),
-                  child: Text(selectedTime != null
-                      ? '${selectedTime!.hour}:${selectedTime!.minute}'
-                      : '時間を選択'),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 4,
+                    backgroundColor: Color(0xff82d3e3),
+                  ),
+                  child: Text(
+                    selectedTime != null
+                        ? '${selectedTime!.hour}:${selectedTime!.minute}'
+                        : '時間を選択',
+                    style: TextStyle(
+                        color: Colors.black,
+                        // fontWeight: FontWeight.bold,
+                        fontSize: 17),
+                  ),
                 ),
                 SizedBox(height: 24),
                 //
