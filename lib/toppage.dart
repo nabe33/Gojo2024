@@ -46,6 +46,7 @@ class _TopPageState extends State<TopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // 戻るアイコンを表示しない
         backgroundColor: Colors.white,
         toolbarHeight: 100.0,
         title: Center(
