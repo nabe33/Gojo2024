@@ -2,11 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:gojo202409/main.dart';
 import 'show_support_hint.dart';
 import '../tasklist/tasklist_top.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class EnlargeHelpCard extends StatelessWidget {
+class EnlargeHelpCard extends StatefulWidget {
   final Map<String, dynamic> helpCard;
 
   const EnlargeHelpCard({super.key, required this.helpCard});
+
+  @override
+  _EnlargeHelpCardState createState() => _EnlargeHelpCardState();
+}
+
+class _EnlargeHelpCardState extends State<EnlargeHelpCard> {
+  String condition = 'ーーー';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCondition();
+  }
+
+  Future<void> _fetchCondition() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+        setState(() {
+          condition = doc['condition'] ?? 'ーーー';
+        });
+      }
+    } catch (e) {
+      print('Error fetching condition: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +61,7 @@ class EnlargeHelpCard extends StatelessWidget {
                   children: [
                     Center(
                       child: Text(
-                        '私は認知症です',
+                        '私は${condition ?? 'ーーー'}です',
                         style: TextStyle(fontSize: 24, color: Colors.black),
                       ),
                     ),
@@ -42,7 +74,7 @@ class EnlargeHelpCard extends StatelessWidget {
                         ),
                         padding: EdgeInsets.all(4),
                         child: Text(
-                          helpCard['contents'] ?? 'No Contents',
+                          widget.helpCard['contents'] ?? 'データなし',
                           style: TextStyle(fontSize: 24),
                         ),
                       ),
