@@ -1,17 +1,21 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart'; // kIsWeb を使うために必要
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'firebase_options.dart';
-import 'dart:async';
-import 'toppage.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'alarm_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'firebase_options.dart';
+import 'toppage.dart';
+import 'alarm_test.dart';
+
 // 明示的にWeb用のパッケージを読み込ませる
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:shared_preferences_web/shared_preferences_web.dart';
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+// import 'package:shared_preferences_web/shared_preferences_web.dart';
+
+// import 'package:flutter/widgets.dart';
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 final userProvider = StateProvider<User?>((ref) => null);
 
@@ -40,7 +44,11 @@ Future<void> loadUserFromPreferences(Function(ProviderListenable) read) async {
 
 void main() async {
   // Web向けにプラグインを登録
-  SharedPreferencesPlugin.registerWith(Registrar());
+  // SharedPreferencesPlugin.registerWith(Registrar());
+  // if (kIsWeb) {
+  //   // Web環境の場合のみプラグインを登録
+  //   SharedPreferencesPlugin.registerWith(Registrar());
+  // }
   //
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
